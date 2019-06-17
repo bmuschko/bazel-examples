@@ -1,0 +1,23 @@
+= Versioned Java Library
+
+== Use Case
+
+By default the `java_library` rule doesn't provide a way to attach a version to the produced artifact. It's very common in the Java ecosystem to create a Java library for later distribution e.g. GitHub release or a binary repository. For that purpose, you'll want to attach a version to the JAR file to clearly identify a set a changes.
+
+== Implementation
+
+You can rename an existing file with the help of a `genrule`. The version can be defined as variable and passed to the `genrule`. In this implementation, the `java_library` and `genrule` have been wrapped in a macro so that they can be reuse across multiple modules.
+
+== Usage
+
+To produce the JAR file, run the `java_library` rule named `messenger`.
+
+----
+$ bazel build //:messenger
+----
+
+The `genrule` attaches the prefix `versioned` to the name.
+
+----
+$ bazel build //:versioned-messenger
+----
