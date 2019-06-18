@@ -8,6 +8,7 @@ jdk:
 env:
   global:
     - BAZEL_VERSION="0.27.0"
+    - GENERIC_PROJECTS_DIR="$TRAVIS_BUILD_DIR/generic"
     - JAVA_PROJECTS_DIR="$TRAVIS_BUILD_DIR/java"
 
 before_install:
@@ -18,6 +19,9 @@ before_install:
   - rm -f install.sh
 
 script:
+  # Execute projects using generic functionality
+  - cd "$GENERIC_PROJECTS_DIR/rules/empty"; bazel build //:nothing
+  
   # Execute Java-based projects
   - cd "$JAVA_PROJECTS_DIR/single-package"; bazel build //:hello-world
   - cd "$JAVA_PROJECTS_DIR/multi-package"; bazel build //:hello-world
