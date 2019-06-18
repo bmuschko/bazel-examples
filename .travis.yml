@@ -13,7 +13,7 @@ before_install:
 
 script:
   - cd java
-  - cd ..; cd single-package; bazel build //:hello-world
+  - cd single-package; bazel build //:hello-world
   - cd ..; cd multi-package; bazel build //:hello-world
   - cd ..; cd multi-module; bazel build //app:app
   - cd ..; cd external-deps; bazel build //:app
