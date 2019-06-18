@@ -12,11 +12,12 @@ before_install:
   - rm -f install.sh
 
 script:
-  - cd java/single-package; bazel build //:hello-world
-  - cd java/multi-package; bazel build //:hello-world
-  - cd java/multi-module; bazel build //app:app
-  - cd java/external-deps; bazel build //:app
-  - cd java/compile-only-dep; bazel build //:lib
-  - cd java/junit-4; bazel test //:all-tests --test_output=all
-  - cd java/javadoc; bazel build //:javadoc
-  - cd java/versioned-java-library; bazel build //:messenger
+  - cd java
+  - cd ..; cd single-package; bazel build //:hello-world
+  - cd ..; cd multi-package; bazel build //:hello-world
+  - cd ..; cd multi-module; bazel build //app:app
+  - cd ..; cd external-deps; bazel build //:app
+  - cd ..; cd compile-only-dep; bazel build //:lib
+  - cd ..; cd junit-4; bazel test //:all-tests --test_output=all
+  - cd ..; cd javadoc; bazel build //:javadoc
+  - cd ..; cd versioned-java-library; bazel build //:messenger
