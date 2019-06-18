@@ -1,4 +1,8 @@
 dist: trusty
+sudo: required
+
+osx_image: xcode8.3
+language: java
 
 addons:
   apt:
@@ -9,8 +13,10 @@ addons:
       - pkg-config
 
 before_install:
-  - wget https://github.com/bazelbuild/bazel/releases/download/0.27.0/bazel_0.27.0-linux-x86_64.deb
-  - sudo dpkg -i bazel_0.27.0-linux-x86_64.deb
+  - wget -O install.sh "https://github.com/bazelbuild/bazel/releases/download/0.27.0/bazel-0.27.0-installer-linux-x86_64.sh"
+  - chmod +x install.sh
+  - ./install.sh --user
+  - rm -f install.sh
 
 script:
   - cd java/single-package; bazel build //:hello-world
