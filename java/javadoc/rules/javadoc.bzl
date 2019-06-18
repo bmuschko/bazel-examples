@@ -8,7 +8,7 @@ def _impl(ctx):
       "mkdir %s" % zip_input,
       "javadoc -quiet -d %s %s" % (zip_input, " ".join(src_list)),
       "zip -q -r %s %s/*" % (zip_output.path, zip_input)]
-  ctx.action(
+  ctx.actions.run_shell(
       inputs = ctx.files.srcs,
       outputs = [zip_output],
       command = "\n".join(cmd))
