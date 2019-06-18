@@ -19,3 +19,4 @@ script:
   - cd ..; cd junit4-test; bazel test //:all-tests --test_output=all
   - cd ..; cd javadoc; bazel build //:app-doc
   - cd ..; cd versioned-java-library; bazel build //:messenger
+  - cd ..; cd spring-boot; bazel build //:spring-boot-hello-world
