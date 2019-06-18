@@ -14,3 +14,9 @@ before_install:
 script:
   - cd java/single-package; bazel build //:hello-world
   - cd java/multi-package; bazel build //:hello-world
+  - cd java/multi-module; bazel build //app:app
+  - cd java/external-deps; bazel build //:app
+  - cd java/compile-only-dep; bazel build //:lib
+  - cd java/junit-4; bazel test //:all-tests --test_output=all
+  - cd java/javadoc; bazel build //:javadoc
+  - cd java/versioned-java-library; bazel build //:messenger
