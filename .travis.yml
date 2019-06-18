@@ -6,8 +6,9 @@ jdk:
   - openjdk8
 
 env:
-  - BAZEL_VERSION="0.27.0"
-  - JAVA_PROJECTS_DIR="$TRAVIS_BUILD_DIR/java"
+  global:
+    - BAZEL_VERSION="0.27.0"
+    - JAVA_PROJECTS_DIR="$TRAVIS_BUILD_DIR/java"
 
 before_install:
   - sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python3
