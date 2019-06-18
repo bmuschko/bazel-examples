@@ -7,6 +7,7 @@ jdk:
 
 env:
   - BAZEL_VERSION="0.27.0"
+  - JAVA_PROJECTS_DIR="$TRAVIS_BUILD_DIR/java"
 
 before_install:
   - sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python3
@@ -16,13 +17,13 @@ before_install:
   - rm -f install.sh
 
 script:
-  - cd java
-  - cd single-package; bazel build //:hello-world
-  - cd ..; cd multi-package; bazel build //:hello-world
-  - cd ..; cd multi-module; bazel build //app:app
-  - cd ..; cd external-deps; bazel build //:app
-  - cd ..; cd compile-only-dep; bazel build //:lib
-  - cd ..; cd junit4-test; bazel test //:all-tests --test_output=all
-  - cd ..; cd javadoc; bazel build //:app-doc
-  - cd ..; cd versioned-java-library; bazel build //:messenger
-  - cd ..; cd spring-boot; bazel build //:spring-boot-hello-world
+  # Execute Java-based projects
+  - cd "$JAVA_PROJECTS_DIR/single-package"; bazel build //:hello-world
+  - cd "$JAVA_PROJECTS_DIR/multi-package"; bazel build //:hello-world
+  - cd "$JAVA_PROJECTS_DIR/multi-module"; bazel build //app:app
+  - cd "$JAVA_PROJECTS_DIR/external-deps"; bazel build //:app
+  - cd "$JAVA_PROJECTS_DIR/compile-only-dep"; bazel build //:lib
+  - cd "$JAVA_PROJECTS_DIR/junit4-test"; bazel test //:all-tests --test_output=all
+  - cd "$JAVA_PROJECTS_DIR/javadoc"; bazel build //:app-doc
+  - cd "$JAVA_PROJECTS_DIR/versioned-java-library"; bazel build //:messenger
+  - cd "$JAVA_PROJECTS_DIR/spring-boot"; bazel build //:spring-boot-hello-world
