@@ -19,5 +19,5 @@ script:
   - cd ..; cd external-deps; bazel build //:app
   - cd ..; cd compile-only-dep; bazel build //:lib
   - cd ..; cd junit4-test; bazel test //:all-tests --test_output=all
-  - cd ..; cd javadoc; bazel build //:javadoc
+  - cd ..; cd javadoc; bazel build //:app-doc
   - cd ..; cd versioned-java-library; bazel build //:messenger
