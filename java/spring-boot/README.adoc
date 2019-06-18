@@ -1,0 +1,24 @@
+= Spring Boot Application
+
+== Use Case
+
+Spring Boot is a popular application framework for building microservices. To build the application, you will have to declare necessary external dependencies and create an uberjar or a runnable application.
+
+== Implementation
+
+It's fairly simple to generate a Java binary that declares the necessary compile dependencies. It gets more complex if you want to build an uberjar that contains all dependencies.
+
+== Usage
+
+To produce the JAR file, run the `java_binary` rule named `spring-boot-hello-world`.
+
+----
+$ bazel build //:spring-boot-hello-world
+----
+
+After building the binary, you can run the application with the generated shell script.
+
+----
+$ cd bazel-bin
+$ ./spring-boot-hello-world
+----
