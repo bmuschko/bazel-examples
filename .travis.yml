@@ -4,15 +4,8 @@ sudo: required
 osx_image: xcode8.3
 language: java
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - wget
-      - pkg-config
-
 before_install:
+  - sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python3
   - wget -O install.sh "https://github.com/bazelbuild/bazel/releases/download/0.27.0/bazel-0.27.0-installer-linux-x86_64.sh"
   - chmod +x install.sh
   - ./install.sh --user
