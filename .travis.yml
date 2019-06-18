@@ -13,3 +13,4 @@ before_install:
 
 script:
   - cd java/single-package; bazel build //:hello-world
+  - cd java/multi-package; bazel build //:hello-world
