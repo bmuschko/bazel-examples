@@ -21,6 +21,7 @@ before_install:
 script:
   # Execute projects using generic functionality
   - cd "$GENERIC_PROJECTS_DIR/rules/empty"; bazel build //:nothing
+  - cd "$GENERIC_PROJECTS_DIR/rules/file-generator"; bazel build //:gen
   
   # Execute Java-based projects
   - cd "$JAVA_PROJECTS_DIR/single-package"; bazel build //:hello-world
