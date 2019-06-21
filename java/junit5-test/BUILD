@@ -14,6 +14,7 @@ java_binary(
     ]
 )
 
+# For more information, see https://github.com/junit-team/junit5-samples/tree/master/junit5-jupiter-starter-bazel
 load("//:junit5.bzl", "java_junit5_test")
 
 java_junit5_test(
