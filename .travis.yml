@@ -30,6 +30,7 @@ script:
   - cd "$JAVA_PROJECTS_DIR/multi-module"; bazel build //app:app
   - cd "$JAVA_PROJECTS_DIR/external-deps"; bazel build //:app
   - cd "$JAVA_PROJECTS_DIR/compile-only-dep"; bazel build //:lib
+  - cd "$JAVA_PROJECTS_DIR/pom-generation"; bazel build //:pom
   - cd "$JAVA_PROJECTS_DIR/junit4-test"; bazel test //:all-tests --test_output=all
   - cd "$JAVA_PROJECTS_DIR/junit5-test"; bazel test //:junit5-test --test_output=all
   - cd "$JAVA_PROJECTS_DIR/javadoc"; bazel build //:app-doc
