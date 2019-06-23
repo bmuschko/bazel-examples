@@ -1,0 +1,38 @@
+= Docker Image for a Spring Boot Application
+
+== Use Case
+
+You want to containerize your Spring Boot application. The https://github.com/bazelbuild/rules_docker[Bazel Container Image Rules] help with achieving the task.
+
+== Implementation
+
+The Docker rules provide language-specific macros for generating a distroless image. The rule `java_image` can create an image for a Java-based application. By default this image doesn't not expose any ports. The instructions can be refined with the help of the rule `container_image`. For example you can define a working directory, ports etc.
+
+== Usage
+
+To create the image, execute the `run` task. You should find the image in the Docker registry.
+
+----
+$ bazel run //:app-image -- --norun
+INFO: Analyzed target //:app-image (0 packages loaded, 0 targets configured).
+INFO: Found 1 target...
+Target //:app-image up-to-date:
+  bazel-bin/app-image-layer.tar
+INFO: Elapsed time: 0.128s, Critical Path: 0.00s
+INFO: 0 processes.
+INFO: Build completed successfully, 1 total action
+INFO: Build completed successfully, 1 total action
+Loaded image ID: sha256:ec4f62e42d5067df6dbde8dd95fc2bc79dc42e84dc52bae485ebc96f1c3c850a
+Tagging ec4f62e42d5067df6dbde8dd95fc2bc79dc42e84dc52bae485ebc96f1c3c850a as bazel:app-image
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+bazel               app-image           ec4f62e42d50        49 years ago        135MB
+----
+
+You can create a container for the image as usual.
+
+----
+$ docker run -d -p 8080:8080 bazel:app-image
+a17b1fe269237e1208ab5803adf6bc63f1b2d6f493926a399010f8e8daa1e38a
+$ curl localhost:8080
+----
