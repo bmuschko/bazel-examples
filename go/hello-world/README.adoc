@@ -1,0 +1,45 @@
+= Building a Simple Go Application
+
+== Use Case
+
+You want to implement typical automation tasks for a Go project. Those tasks include building the source code into a library, running the tests and creating a binary.
+
+== Implementation
+
+The https://github.com/bazelbuild/rules_go[Go rules for Bazel] provide this kind of functionality. You can use the rules `go_library`, `go_test` and `go_binary`.
+
+== Usage
+
+To build the binary, execute the target of type `go_binary`.
+
+----
+$ bazel build //:hello-world
+INFO: Build option --platforms has changed, discarding analysis cache.
+INFO: Analyzed target //:hello-world (1 packages loaded, 6584 targets configured).
+INFO: Found 1 target...
+Target //:hello-world up-to-date:
+  bazel-bin/darwin_amd64_stripped/hello-world
+INFO: Elapsed time: 0.706s, Critical Path: 0.00s
+INFO: 0 processes.
+INFO: Build completed successfully, 1 total action
+
+$ bazel-bin/darwin_amd64_stripped/hello-world
+Hello World!
+----
+
+To execute the tests, run the relevant test target.
+
+----
+$ bazel test //:tests
+INFO: Analyzed target //:tests (10 packages loaded, 214 targets configured).
+INFO: Found 1 test target...
+Target //:tests up-to-date:
+  bazel-bin/darwin_amd64_stripped/tests
+INFO: Elapsed time: 0.903s, Critical Path: 0.70s
+INFO: 7 processes: 7 darwin-sandbox.
+INFO: Build completed successfully, 9 total actions
+//:tests                                                                 PASSED in 0.1s
+
+Executed 1 out of 1 test: 1 test passes.
+INFO: Build completed successfully, 9 total actions
+----
