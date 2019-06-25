@@ -23,6 +23,6 @@ jobs:
               export PATH="$PATH:$HOME/bin"
 
               # Execute projects using generic functionality
-              - cd $GENERIC_PROJECTS_DIR/tar; bazel build //:my-tar
-              - cd $GENERIC_PROJECTS_DIR/rules/print-message; bazel build //:nothing
-              - cd $GENERIC_PROJECTS_DIR/rules/write-file; bazel build //:gen
+              cd $GENERIC_PROJECTS_DIR/tar; bazel build //:my-tar
+              cd $GENERIC_PROJECTS_DIR/rules/print-message; bazel build //:nothing
+              cd $GENERIC_PROJECTS_DIR/rules/write-file; bazel build //:gen
