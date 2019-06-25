@@ -39,4 +39,5 @@ before_install:
   - ./install.sh --user
   - rm -f install.sh
 
-script: ${SCRIPT}
+script:
+  - ${SCRIPT}
