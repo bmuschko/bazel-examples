@@ -5,6 +5,9 @@ jobs:
       - image: circleci/golang:1.12.6
     environment:
       BAZEL_VERSION: 0.27.0
+      CHECKOUT_DIR: $HOME/project
+      GENERIC_PROJECTS_DIR: $CHECKOUT_DIR/generic
+      JAVA_PROJECTS_DIR: CHECKOUT_DIR/java
     steps:
       - checkout
       - run:
@@ -15,8 +18,5 @@ jobs:
               ./install.sh --user
               rm -f install.sh
               export PATH="$PATH:$HOME/bin"
-              echo $CIRCLE_WORKING_DIRECTORY
-              echo $HOME
-              cd $HOME/project/generic/tar
-              pwd
+              cd $GENERIC_PROJECTS_DIR/tar
               bazel build //:my-tar
