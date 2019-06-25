@@ -1,4 +1,4 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
 go_library(
     name = "go_default_library",
@@ -16,4 +16,11 @@ go_binary(
         "msg.go",
     ],
     deps = [":go_default_library"],
+)
+
+go_test(
+    name = "tests",
+    srcs = ["msg_test.go"],
+    importpath = "github.com/bmuschko/hello-world",
+    embed = [":go_default_library"],
 )
