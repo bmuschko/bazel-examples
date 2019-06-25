@@ -1,0 +1,40 @@
+= Docker Image for a Java Web Application
+
+== Use Case
+
+You want to containerize your Java Web Application. The https://github.com/bazelbuild/rules_docker[Bazel Container Image Rules] help with achieving the task.
+
+== Implementation
+
+The Docker rules provide language-specific macros for generating a distroless image. The rule `war_image` can create an image for a Servlet-based application. It stands up a Jetty server and require the developer to use Servlet implementations based on the API version 3.0. Currently, you can't use a `web.xml`.
+
+By default this image doesn't not expose any ports. The instructions can be refined with the help of the rule `container_image`. For example you can define a working directory, ports etc.
+
+== Usage
+
+To create the image, execute the `run` task. You should find the image in the Docker registry.
+
+----
+$ bazel run //:docker-image  -- --norun
+INFO: Analyzed target //:docker-image (0 packages loaded, 0 targets configured).
+INFO: Found 1 target...
+Target //:docker-image up-to-date:
+  bazel-bin/docker-image-layer.tar
+INFO: Elapsed time: 0.135s, Critical Path: 0.00s
+INFO: 0 processes.
+INFO: Build completed successfully, 1 total action
+INFO: Build completed successfully, 1 total action
+Loaded image ID: sha256:1841022de042a2f77921d88cc14541416c4b305ffd92d476cbc7edef48893da3
+Tagging 1841022de042a2f77921d88cc14541416c4b305ffd92d476cbc7edef48893da3 as bazel:docker-image
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+bazel               docker-image        1841022de042        49 years ago        142MB
+----
+
+You can create a container for the image as usual.
+
+----
+$ docker run -d -p 8080:8080 bazel:docker-image
+7badce15083e2d026bd88ead4f25d7abac7bc39fa65e17f92677d4e2dccd2162
+$ curl localhost:8080/simple
+----

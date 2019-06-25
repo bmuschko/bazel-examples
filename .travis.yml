@@ -38,3 +38,4 @@ script:
   - cd "$JAVA_PROJECTS_DIR/versioned-java-library"; bazel build //:messenger
   - cd "$JAVA_PROJECTS_DIR/spring-boot"; bazel build //:spring-boot-hello-world
   - cd "$JAVA_PROJECTS_DIR/spring-boot-in-docker-image"; bazel build //:app-image
+  - cd "$JAVA_PROJECTS_DIR/web-app-in-docker-image"; bazel build //:docker-image
