@@ -6,17 +6,22 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Export Environment Variables
           command: |-
               export BAZEL_VERSION=0.27.0
               export CHECKOUT_DIR=${HOME}/project
               export GENERIC_PROJECTS_DIR=${CHECKOUT_DIR}/generic
               export JAVA_PROJECTS_DIR=${CHECKOUT_DIR}/java
-
+      - run:
+          name: Install Bazel
+          command: |-
               sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python3
               wget -O install.sh "https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh"
               chmod +x install.sh
               ./install.sh --user
               rm -f install.sh
               export PATH="$PATH:$HOME/bin"
-              cd $GENERIC_PROJECTS_DIR/tar
-              bazel build //:my-tar
+      - run:
+          name: Execute Projects Using Generic Functionality
+          command: |-
+              cd $GENERIC_PROJECTS_DIR/tar; bazel build //:my-tar
