@@ -1,0 +1,19 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.12.6
+    environment:
+      BAZEL_VERSION: 0.27.0
+    steps:
+      - checkout
+      - run:
+          command: |-
+              sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python3
+              wget -O install.sh "https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh"
+              chmod +x install.sh
+              ./install.sh --user
+              rm -f install.sh
+      - run:
+          command:
+              cd generic/tar; bazel build //:my-tar
