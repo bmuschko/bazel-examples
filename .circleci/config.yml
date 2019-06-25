@@ -15,4 +15,6 @@ jobs:
               ./install.sh --user
               rm -f install.sh
               export PATH="$PATH:$HOME/bin"
-              cd "$CIRCLE_WORKING_DIRECTORY/generic/tar"; bazel build //:my-tar
+              cd generic/tar
+              pwd
+              bazel build //:my-tar
