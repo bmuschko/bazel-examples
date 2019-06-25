@@ -5,9 +5,9 @@ jobs:
       - image: circleci/golang:1.12.6
     environment:
       BAZEL_VERSION: 0.27.0
-      CHECKOUT_DIR: $HOME/project
-      GENERIC_PROJECTS_DIR: $CHECKOUT_DIR/generic
-      JAVA_PROJECTS_DIR: CHECKOUT_DIR/java
+      CHECKOUT_DIR: ${HOME}/project
+      GENERIC_PROJECTS_DIR: ${CHECKOUT_DIR}/generic
+      JAVA_PROJECTS_DIR: ${CHECKOUT_DIR}/java
     steps:
       - checkout
       - run:
