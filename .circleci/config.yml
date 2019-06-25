@@ -3,15 +3,15 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.12.6
-    environment:
-      BAZEL_VERSION: 0.27.0
-      CHECKOUT_DIR: ${HOME}/project
-      GENERIC_PROJECTS_DIR: ${CHECKOUT_DIR}/generic
-      JAVA_PROJECTS_DIR: ${CHECKOUT_DIR}/java
     steps:
       - checkout
       - run:
           command: |-
+              export BAZEL_VERSION=0.27.0
+              export CHECKOUT_DIR=${HOME}/project
+              export GENERIC_PROJECTS_DIR=${CHECKOUT_DIR}/generic
+              export JAVA_PROJECTS_DIR=${CHECKOUT_DIR}/java
+
               sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python3
               wget -O install.sh "https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh"
               chmod +x install.sh
