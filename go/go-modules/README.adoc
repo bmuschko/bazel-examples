@@ -1,0 +1,39 @@
+= Building a Go Application with Go Modules
+
+== Use Case
+
+Go Modules is becoming the quasi-standard for package management in Go. You want to seamlessly integrate the build with this mechanism.
+
+== Implementation
+
+The https://github.com/bazelbuild/rules_go[Go rules for Bazel] do not provide a direct integration with Go Modules. Users are supposed to use https://github.com/bazelbuild/bazel-gazelle[Gazelle] which is a rule for generating the relevant dependencies definitions from a `go.mod` file. This mechanism is less than ideal and feels disconnected from the existing Go Modules tooling which directly integrates with the `go` command line tool.
+
+== Usage
+
+You start by defining Gazelle in your WORKSPACE and BUILD file https://github.com/bazelbuild/bazel-gazelle#running-gazelle-with-bazel[as described on the webpage]. There are two commands you have to run, one command to generate the definition of your dependencies in the WORKSPACE file and the other one to generate the usage of the dependencies in your Go targets.
+
+----
+$ bazel run //:gazelle -- update-repos -from_file=go.mod
+INFO: Analyzed target //:gazelle (3 packages loaded, 110 targets configured).
+INFO: Found 1 target...
+Target //:gazelle up-to-date:
+  bazel-bin/gazelle-runner.bash
+  bazel-bin/gazelle
+INFO: Elapsed time: 2.459s, Critical Path: 0.01s
+INFO: 0 processes.
+INFO: Build completed successfully, 1 total action
+INFO: Build completed successfully, 1 total action
+
+$ bazel run //:gazelle
+INFO: Analyzed target //:gazelle (2 packages loaded, 110 targets configured).
+INFO: Found 1 target...
+Target //:gazelle up-to-date:
+  bazel-bin/gazelle-runner.bash
+  bazel-bin/gazelle
+INFO: Elapsed time: 2.107s, Critical Path: 0.01s
+INFO: 0 processes.
+INFO: Build completed successfully, 1 total action
+INFO: Build completed successfully, 1 total action
+----
+
+You will have to re-run the targets whenever one of your dependencies in `go.mod` changes.
