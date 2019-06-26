@@ -3,7 +3,7 @@ name: default
 
 steps:
 - name: all-examples
-  image: openjdk8
+  image: openjdk:8
   commands:
   # Set environment variables
   - export BAZEL_VERSION=0.27.0
