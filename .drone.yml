@@ -7,9 +7,8 @@ steps:
   user: root
   environment:
     BAZEL_VERSION: 0.27.0
-    CHECKOUT_DIR: /drone/src
-    GENERIC_PROJECTS_DIR: $CHECKOUT_DIR/generic
-    JAVA_PROJECTS_DIR: $CHECKOUT_DIR/java
+    GENERIC_PROJECTS_DIR: /drone/src/generic
+    JAVA_PROJECTS_DIR: /drone/src/java
   commands:
   # Install Bazel
   - sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python3
