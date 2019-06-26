@@ -3,7 +3,7 @@ name: default
 
 steps:
 - name: all-examples
-  image: openjdk:8
+  image: circleci/openjdk:8-jdk
   commands:
   # Set environment variables
   - export BAZEL_VERSION=0.27.0
@@ -11,8 +11,7 @@ steps:
   - export JAVA_PROJECTS_DIR=${DRONE_REPO}/java
   
   # Install Bazel
-  - apt-get update
-  - apt-get install pkg-config zip g++ zlib1g-dev unzip python3
+  - sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python3
   - wget -O install.sh "https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh"
   - chmod +x install.sh
   - ./install.sh --user
