@@ -7,8 +7,8 @@ steps:
   commands:
   # Set environment variables
   - export BAZEL_VERSION=0.27.0
-  - export GENERIC_PROJECTS_DIR=${DRONE_REPO}/generic
-  - export JAVA_PROJECTS_DIR=${DRONE_REPO}/java
+  - export GENERIC_PROJECTS_DIR=/drone/src/${DRONE_REPO}/generic
+  - export JAVA_PROJECTS_DIR=/drone/src/${DRONE_REPO}/java
   
   # Install Bazel
   - sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python3
