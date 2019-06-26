@@ -17,6 +17,7 @@ steps:
   - sudo ./install.sh --user
   - sudo rm -f install.sh
   - export PATH="$PATH:$HOME/bin"
+  - pwd
   
   # Execute projects using generic functionality
   - cd $GENERIC_PROJECTS_DIR/tar; bazel build //:my-tar
