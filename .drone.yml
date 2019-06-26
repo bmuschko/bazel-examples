@@ -2,13 +2,11 @@ kind: pipeline
 name: default
 
 steps:
-- name: all-examples
+- name: install-bazel
   image: circleci/openjdk:8-jdk
   user: root
   environment:
     BAZEL_VERSION: 0.27.0
-    GENERIC_PROJECTS_DIR: /drone/src/generic
-    JAVA_PROJECTS_DIR: /drone/src/java
   commands:
   # Install Bazel
   - sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python3
@@ -17,7 +15,14 @@ steps:
   - ./install.sh --user
   - rm -f install.sh
   - export PATH="$PATH:$HOME/bin"
-  
+
+- name: bazel-projects
+  image: circleci/openjdk:8-jdk
+  user: root
+  environment:
+    GENERIC_PROJECTS_DIR: /drone/src/generic
+    JAVA_PROJECTS_DIR: /drone/src/java
+  commands:
   # Execute projects using generic functionality
   - cd $GENERIC_PROJECTS_DIR/tar; bazel build //:my-tar
   - cd $GENERIC_PROJECTS_DIR/rules/print-message; bazel build //:nothing
