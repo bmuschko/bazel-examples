@@ -1,0 +1,3 @@
+= Bazel Examples image:https://travis-ci.org/bmuschko/bazel-examples.svg?branch=master["Build Status", link="https://travis-ci.org/bmuschko/bazel-examples"] image:https://circleci.com/gh/bmuschko/bazel-examples.svg?style=svg["CircleCI", link="https://circleci.com/gh/bmuschko/bazel-examples"] image:https://goreportcard.com/badge/github.com/bmuschko/kubectl-swiftnp["Go Report Card", link="https://goreportcard.com/report/github.com/bmuschko/kubectl-swiftnp"]
+
+A collection of Bazel projects demonstrating its capabilities in different contexts and use cases.
