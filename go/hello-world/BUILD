@@ -9,20 +9,17 @@ go_library(
         "msg.go",
     ],
     importpath = IMPORT_PATH,
+    visibility = ["//visibility:private"],
 )
 
 go_binary(
     name = "hello-world",
-    srcs = [
-        "main.go",
-        "msg.go",
-    ],
-    deps = [":go_default_library"],
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
 )
 
 go_test(
     name = "tests",
     srcs = ["msg_test.go"],
-    importpath = IMPORT_PATH,
     embed = [":go_default_library"],
 )
