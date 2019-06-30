@@ -1,30 +1,19 @@
 def _war_impl(ctx):
-  zipper = ctx.file._zipper
   war = ctx.outputs.war
-  build_output = war.path + ".build_output"
- 
-  cmd = "rm -rf %s\n" % build_output
-  cmd += "mkdir -p %s\n" % build_output
-  cmd += "cp %s %s\n" % (" ".join([src.path for src in ctx.files.srcs]), build_output)
-  
-  cmd += "find %s -name '*.txt' | sed 's:^%s/::' > %s/class_list\n" % (
-      build_output,
-      build_output,
-      build_output,
-  )
 
-  cmd += "root=`pwd`\n"
-  cmd += "cd %s\n" % build_output
-  cmd += "zip ../%s new.txt web.xml\n" % war.basename
+  zipper_args = ["c", war.path]
 
-  print(cmd)
+  for src in ctx.files.srcs:
+    name = src.path + "=" + src.path
+    zipper_args.append(name)
 
-  ctx.actions.run_shell(
+  ctx.actions.run(
       inputs = ctx.files.srcs,
       outputs = [war],
-      mnemonic = "WAR",
-      command = "set -e;" + cmd,
-      use_default_shell_env = True,
+      executable = ctx.executable._zipper,
+      arguments = zipper_args,
+      progress_message = "Creating war...",
+      mnemonic = "war",
   )
 
 war = rule(
@@ -34,7 +23,6 @@ war = rule(
         "_zipper": attr.label(
             default = Label("@bazel_tools//tools/zip:zipper"),
             executable = True,
-            allow_single_file = True,
             cfg = "host",
         ),
     },
@@ -43,7 +31,7 @@ war = rule(
     },
 )
 
-def java_war(name, **kwargs):
+def java_war(name, srcs = [], **kwargs):
     native.java_library(
         name = "lib%s" % name,
         **kwargs
@@ -51,5 +39,5 @@ def java_war(name, **kwargs):
 
     war(
         name = name,
-        srcs = native.glob(["resources/**/*.*"]),
+        srcs = srcs,
     )
