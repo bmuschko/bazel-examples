@@ -52,6 +52,18 @@ war = rule(
     implementation = _war_impl,
     doc = """
 Rule for generating a Java Web Archive (WAR).
+
+Example:
+
+java_war(
+    name = "web-app",
+    java_srcs = glob(["src/main/java/**/*.java"]),
+    compression = True,
+    deps = [
+        "@maven//:org_mortbay_jetty_servlet_api",
+        "@maven//:ch_qos_logback_logback_classic",
+    ],
+)
 """,
     attrs = {
         "web_app_root": attr.string(
