@@ -90,10 +90,10 @@ def java_war(name, web_app_dir = "src/main/webapp", java_srcs = [], deps = [], c
 
     Args:
         name: A unique name for this rule.
-        web_app_dir: The root web application directory.
-        java_srcs: Java source files for compilation.
-        deps: Dependencies for this target.
-        compression: Enables compression for the WAR.
+        web_app_dir: The root web application directory (defaults to src/main/webapp).
+        java_srcs: Java source files for compilation (defaults to any empty label list).
+        deps: Dependencies for this java_library target (defaults to any empty label list).
+        compression: Enables compression for the WAR (defaults to False).
     """
     native.java_library(
         name = "lib%s" % name,
