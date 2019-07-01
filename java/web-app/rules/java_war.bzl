@@ -49,21 +49,29 @@ def _war_impl(ctx):
     )
 
 war = rule(
-    _war_impl,
+    implementation = _war_impl,
+    doc = """
+Rule for generating a Java Web Archive (WAR).
+""",
     attrs = {
         "web_app_root": attr.string(
+            doc = "Root directory containing web application files (e.g. web.xml, CSS or JavaScript files).",
             default = "src/main/webapp",
             mandatory = True,
         ),
         "web_app_srcs": attr.label_list(
+            doc = "Source files to be included fromt the web application root directory.",
             allow_files = True,
             mandatory = True,
         ),
         "compression": attr.bool(
+            doc = "Enables compression for the WAR file.",
             default = False,
             mandatory = True,
         ),
-        "deps": attr.label_list(),
+        "deps": attr.label_list(
+            doc = "Dependencies for this target.",
+        ),
         "_zipper": attr.label(
             default = Label("@bazel_tools//tools/zip:zipper"),
             executable = True,
