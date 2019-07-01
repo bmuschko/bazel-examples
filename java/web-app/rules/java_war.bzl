@@ -87,6 +87,7 @@ def java_war(name, web_app_dir = "src/main/webapp", java_srcs = [], deps = [], c
     """Creates a Java Web Archive (WAR).
 
     Automatically creates a Java library and bundles it with the web application files and any dependencies.
+    For more information on the internal structure of a WAR file, see the [official documentation](https://docs.oracle.com/javaee/5/tutorial/doc/bnadx.html).
 
     Args:
         name: A unique name for this rule.
