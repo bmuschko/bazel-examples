@@ -1,0 +1,28 @@
+= Docker Image for a Java Web Application
+
+== Use Case
+
+The archive type for a traditional Java web applications meant to be deployed to a Servlet container or application server is a WAR file. You want to bundle the WAR contents containing the web application files and its transitive dependencies.
+
+== Implementation
+
+Building a WAR file is not directly supported by `rules-java`. You will have to write your own implementation. There are various elements to it:
+
+1. You need a way to create ZIP file. The sample rule uses `@bazel_tools//tools/zip:zipper`.
+2. You will have to collect the transitive closure of dependencies and store them in `WEB-INF/lib`.
+3. You will have to resolve all web application files (e.g. `web.xml`, CSS files, JS files...) and store them in `WEB-INF`.
+
+== Usage
+
+To create the Java library and they WAR file, simply use the macro `java_war`.
+
+----
+$ bazel build //:web-app
+INFO: Analyzed target //:web-app (17 packages loaded, 540 targets configured).
+INFO: Found 1 target...
+Target //:web-app up-to-date:
+  bazel-bin/web-app.war
+INFO: Elapsed time: 2.319s, Critical Path: 0.00s
+INFO: 0 processes.
+INFO: Build completed successfully, 1 total action
+----
