@@ -1,4 +1,4 @@
-= Docker Image for a Java Web Application
+= Bulding a Traditional Java Web Application
 
 == Use Case
 
