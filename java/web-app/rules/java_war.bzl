@@ -83,7 +83,18 @@ Rule for generating a Java Web Archive (WAR).
     },
 )
 
-def java_war(name, web_app_dir = "src/main/webapp", compression = False, java_srcs = [], deps = [], **kwargs):
+def java_war(name, web_app_dir = "src/main/webapp", java_srcs = [], deps = [], compression = False, **kwargs):
+    """Creates a Java Web Archive (WAR).
+
+    Automatically creates a Java library and bundles it with the web application files and any dependencies.
+
+    Args:
+        name: A unique name for this rule.
+        web_app_dir: The root web application directory.
+        java_srcs: Java source files for compilation.
+        deps: Dependencies for this target.
+        compression: Enables compression for the WAR.
+    """
     native.java_library(
         name = "lib%s" % name,
         srcs = java_srcs,
