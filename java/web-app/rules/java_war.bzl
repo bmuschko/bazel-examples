@@ -75,10 +75,10 @@ war = rule(
     },
 )
 
-def java_war(name, web_app_dir = "src/main/webapp", compression = False, srcs = [], deps = [], **kwargs):
+def java_war(name, web_app_dir = "src/main/webapp", compression = False, java_srcs = [], deps = [], **kwargs):
     native.java_library(
         name = "lib%s" % name,
-        srcs = srcs,
+        srcs = java_srcs,
         deps = deps,
         **kwargs
     )
