@@ -47,7 +47,7 @@ war = rule(
     },
 )
 
-def java_war(name, web_app_dir, deps = [], **kwargs):
+def java_war(name, web_app_dir = "src/main/webapp", deps = [], **kwargs):
     native.java_library(
         name = "lib%s" % name,
         **kwargs
