@@ -1,28 +1,38 @@
-def _war_impl(ctx):
-    web_app_root = ctx.attr.web_app_root
-    web_app_srcs = ctx.files.web_app_srcs
-    war = ctx.outputs.war
-
-    zipper_args = ["c", war.path]
-
+def _add_web_app_srcs_args(zipper_args, web_app_root, web_app_srcs):
     for src in web_app_srcs:
         name = src.path.lstrip(web_app_root) + "=" + src.path
         zipper_args.append(name)
 
+def _collect_runtime_deps(deps):
     runtime_deps = []
 
-    for this_dep in ctx.attr.deps:
+    for this_dep in deps:
         if JavaInfo in this_dep:
             runtime_deps += this_dep[JavaInfo].transitive_runtime_jars.to_list()
 
+    return runtime_deps
+
+def _add_runtime_deps_args(zipper_args, runtime_deps):
     for runtime_dep in runtime_deps:
         name = "WEB-INF/lib/" + runtime_dep.basename + "=" + runtime_dep.path
         zipper_args.append(name)
 
+def _war_impl(ctx):
+    web_app_root = ctx.attr.web_app_root
+    web_app_srcs = ctx.files.web_app_srcs
+    deps = ctx.attr.deps
+    zipper = ctx.executable._zipper
+    war = ctx.outputs.war
+
+    zipper_args = ["c", war.path]
+    _add_web_app_srcs_args(zipper_args, web_app_root, web_app_srcs)
+    runtime_deps = _collect_runtime_deps(deps)
+    _add_runtime_deps_args(zipper_args, runtime_deps)
+
     ctx.actions.run(
         inputs = web_app_srcs + runtime_deps,
         outputs = [war],
-        executable = ctx.executable._zipper,
+        executable = zipper,
         arguments = zipper_args,
         progress_message = "Creating war...",
         mnemonic = "war",
