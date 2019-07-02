@@ -1,13 +1,5 @@
 load("//rules:java_war.bzl", "java_war")
-
-test_suite(
-  name = "test-suite",
-  tests = [
-      ":test-minimal",
-      ":test-extdeps",
-      ":test-custom",
-  ],
-)
+load(":test_suite.bzl", "java_war_test_suite")
 
 java_war(
     name = "minimal",
@@ -15,13 +7,6 @@ java_war(
     deps = [
         "@maven//:org_mortbay_jetty_servlet_api",
     ],
-)
-
-sh_test(
-    name = "test-minimal",
-    srcs = [":minimal_verification.sh"],
-    args = ["$(location :minimal.war)"],
-    data = [":minimal.war"],
 )
 
 java_war(
@@ -33,13 +18,6 @@ java_war(
     ],
 )
 
-sh_test(
-    name = "test-extdeps",
-    srcs = [":extdeps_verification.sh"],
-    args = ["$(location :extdeps.war)"],
-    data = [":extdeps.war"],
-)
-
 java_war(
     name = "custom",
     java_srcs = glob(["custom/java/**/*.java"]),
@@ -49,9 +27,4 @@ java_war(
     ],
 )
 
-sh_test(
-    name = "test-custom",
-    srcs = [":custom_verification.sh"],
-    args = ["$(location :custom.war)"],
-    data = [":custom.war"],
-)
+java_war_test_suite()
