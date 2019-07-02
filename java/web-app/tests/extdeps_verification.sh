@@ -8,7 +8,7 @@ if [ ! -f "$EXPECTED_WAR_FILE" ]; then
   exit 1
 fi
 
-# Verify that WAR file contents
+# Verify WAR file contents
 EXPECTED_WAR_CONTENTS="WEB-INF/web.xml
 css/style.css
 index.html
@@ -24,7 +24,7 @@ if [ "$EXPECTED_WAR_CONTENTS" != "$ACTUAL_WAR_CONTENTS" ]; then
   exit 1
 fi
 
-# Verify that WAR file size
+# Verify WAR file size
 EXPECTED_WAR_SIZE="729982"
 ACTUAL_WAR_SIZE="$(wc -c $EXPECTED_WAR_FILE | awk '{print $1}')"
 
