@@ -8,7 +8,11 @@ def _initial_zipper_args(compression):
 
 def _add_web_app_srcs_args(zipper_args, web_app_root, web_app_srcs):
     for src in web_app_srcs:
-        name = src.path.lstrip(web_app_root) + "=" + src.path
+        web_app_root_index = src.path.index(web_app_root)
+        web_app_root_len = len(web_app_root)
+        index_path = (web_app_root_index + web_app_root_len) + 1
+        path_inside_war = src.path[index_path:]
+        name = path_inside_war + "=" + src.path
         zipper_args.append(name)
 
 def _collect_runtime_deps(deps):
