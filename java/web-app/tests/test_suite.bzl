@@ -3,6 +3,7 @@ def java_war_test_suite():
         name = "test-suite",
         tests = [
             ":test-minimal",
+            ":test-compression",
             ":test-extdeps",
             ":test-custom",
         ],
@@ -13,6 +14,13 @@ def java_war_test_suite():
         srcs = [":minimal_verification.sh"],
         args = ["$(location :minimal.war)"],
         data = [":minimal.war"],
+    )
+
+    native.sh_test(
+        name = "test-compression",
+        srcs = [":compression_verification.sh"],
+        args = ["$(location :compression.war)"],
+        data = [":compression.war"],
     )
 
     native.sh_test(

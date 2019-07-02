@@ -10,6 +10,15 @@ java_war(
 )
 
 java_war(
+    name = "compression",
+    java_srcs = glob(["src/main/java/**/*.java"]),
+    compression = True,
+    deps = [
+        "@maven//:org_mortbay_jetty_servlet_api",
+    ],
+)
+
+java_war(
     name = "extdeps",
     java_srcs = glob(["src/main/java/**/*.java"]),
     deps = [
