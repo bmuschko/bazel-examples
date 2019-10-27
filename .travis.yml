@@ -7,7 +7,7 @@ jdk:
 
 env:
   global:
-    - BAZEL_VERSION="0.27.0"
+    - BAZEL_VERSION="1.1.0"
     - GENERIC_PROJECTS_DIR="$TRAVIS_BUILD_DIR/generic"
     - JAVA_PROJECTS_DIR="$TRAVIS_BUILD_DIR/java"
 

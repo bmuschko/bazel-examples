@@ -9,7 +9,7 @@ jobs:
           name: Execute Sample Projects
           command: |-
               # Set environment variables
-              export BAZEL_VERSION=0.27.0
+              export BAZEL_VERSION=1.1.0
               export CHECKOUT_DIR=${HOME}/project
               export GENERIC_PROJECTS_DIR=${CHECKOUT_DIR}/generic
               export JAVA_PROJECTS_DIR=${CHECKOUT_DIR}/java
