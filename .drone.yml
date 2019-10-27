@@ -3,7 +3,7 @@ name: default
 
 steps:
 - name: all-examples
-  image: circleci/openjdk:8-jdk
+  image: circleci/openjdk:11-jdk
   user: root
   environment:
     BAZEL_VERSION: 1.1.0
